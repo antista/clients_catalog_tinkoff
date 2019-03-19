@@ -1,0 +1,41 @@
+<h1>Clients</h1>
+
+<table width="50%" border="6" cellpadding="20">
+    <thead>
+    <tr align="center" valign="center">
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for client in user.clients.values() %}
+    <tr align="left" valign="center">
+        <td>{{ client.name }}</td>
+        <td>{{ client.phone_number }}</td>
+        <td>{{ client.email }}</td>
+        <td><a href="/{{user.login}}/delete/{{ client.id }}"> delete </a></td>
+    </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+<form action="/{{user.login}}/create" method="post">
+    <p><input type=text name=name required> ФИО клиента
+    <p><input type=text name=phone_number pattern="7[0-9]{10}" maxlength=11 required> Телефонный номер в формате
+        7xxxxxxxxxx
+    <p><input type=text name=email pattern="\w+@\w+[.]\w+" required> Email
+    <p><input type=submit value=create>
+</form>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
