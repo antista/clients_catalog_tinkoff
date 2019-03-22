@@ -10,9 +10,8 @@ class Client(NamedTuple):
 
 
 class User:
-    def __init__(self, login, password):
+    def __init__(self, login):
         self.login = login
-        self.password = password
         self.clients: Dict[str, Client] = {}
         self.phone_numbers = set()
         self.emails = set()
